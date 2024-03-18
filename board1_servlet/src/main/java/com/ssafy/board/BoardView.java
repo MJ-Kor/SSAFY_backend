@@ -3,6 +3,7 @@ package com.ssafy.board;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import com.ssafy.board.dao.BoardDao;
 import com.ssafy.board.dao.BoardDaoImpl;
 import com.ssafy.board.model.BoardDto;
 
@@ -23,9 +24,12 @@ public class BoardView extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String articleno = request.getParameter("articleno");
+		BoardDaoImpl.getInstance().updateHit(Integer.parseInt(articleno));
 		System.out.println(Integer.parseInt(articleno));
 		BoardDto board = BoardDaoImpl.getInstance().viewArticle(Integer.parseInt(articleno));
 		PrintWriter out = response.getWriter();
+		// 2. DB에 업데이트
+		
 		out.println("<!DOCTYPE html>");
 		out.println("<html lang=\"ko\">");
 		out.println("  <head>");
@@ -51,7 +55,7 @@ public class BoardView extends HttpServlet {
 		out.println("        </div>");
 		out.println("        <div class=\"col-lg-8 col-md-10 col-sm-12\">");
 		out.println("          <div class=\"row my-2\">");
-		out.println("            <h2 class=\"text-secondary px-5\">글제목입니다.</h2>");
+		out.println("            <h2 class=\"text-secondary px-5\">"+board.getSubject()+"</h2>");
 		out.println("          </div>");
 		out.println("          <div class=\"row\">");
 		out.println("            <div class=\"col-md-8\">");
@@ -61,19 +65,15 @@ public class BoardView extends HttpServlet {
 		out.println("                  src=\"https://raw.githubusercontent.com/twbs/icons/main/icons/person-fill.svg\"");
 		out.println("                />");
 		out.println("                <p>");
-		out.println("                  <span class=\"fw-bold\">안효인</span> <br />");
-		out.println("                  <span class=\"text-secondary fw-light\"> 2022.07.07 11:11:11 조회 : 11 </span>");
+		out.println("                  <span class=\"fw-bold\">"+board.getUserId()+"</span> <br />");
+		out.println("                  <span class=\"text-secondary fw-light\"> "+board.getRegisterTime()+" 조회 : "+board.getHit()+" </span>");
 		out.println("                </p>");
 		out.println("              </div>");
 		out.println("            </div>");
 		out.println("            <div class=\"col-md-4 align-self-center text-end\">댓글 : 17</div>");
 		out.println("            <div class=\"divider mb-3\"></div>");
 		out.println("            <div class=\"text-secondary\">");
-		out.println("              글 내용입니다. <br />");
-		out.println("              글 내용입니다. <br />");
-		out.println("              글 내용입니다. <br />");
-		out.println("              글 내용입니다. <br />");
-		out.println("              글 내용입니다. <br />");
+		out.println("              "+board.getContent()+"<br />");
 		out.println("            </div>");
 		out.println("            <div class=\"divider mt-3 mb-3\"></div>");
 		out.println("            <div class=\"d-flex justify-content-end\">");
