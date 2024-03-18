@@ -87,10 +87,11 @@ public class BoardDaoImpl implements BoardDao {
 		ResultSet rs = null;
 		try {
 			conn = DBUtil.getConnection();
-			String sql = "select * from board where aricle_no = " + articleNo;
+			String sql = "select * from board where article_no = " + articleNo;
+			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			
+			rs.next();
 			boardDto.setArticleNo(rs.getInt("article_no"));
 			boardDto.setUserId(rs.getString("user_id"));
 			boardDto.setSubject(rs.getString("subject"));
@@ -104,12 +105,29 @@ public class BoardDaoImpl implements BoardDao {
 		} finally {
 			DBUtil.close(rs, pstmt, conn);
 		}
-		return null;
+		return boardDto;
 	}
 
 	@Override
 	public void updateHit(int articleNo) {
-		// TODO Auto-generated method stub
+		BoardDto boardDto = viewArticle(articleNo);
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBUtil.getConnection();
+			
+			StringBuilder sql = new StringBuilder("update board \n");
+			sql.append("set hit = " + "'" + (boardDto.getHit()+1) + "'\n");
+			sql.append("where article_no = " + "'" + boardDto.getArticleNo() + "'");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			int cnt = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(pstmt, conn);
+		}
 
 	}
 
