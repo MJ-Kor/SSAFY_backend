@@ -1,51 +1,55 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SSAFY µµ¼­ °ü¸®</title>
+  <title>SSAFY ë„ì„œ ê´€ë¦¬</title>
 </head>
 <body>
-  <h1>SSAFY µµ¼­ °ü¸®</h1>
+  <h1>SSAFY ë„ì„œ ê´€ë¦¬</h1>
     <form id="form-register" action="" method="post">
       <fieldset>
-        <legend >µµ¼­ µî·Ï</legend>
-        <label style="display: block;" for="isbn">µµ¼­¹øÈ£ <input type="text" id="isbn" name="isbn"></label>
-        <label style="display: block;" for="name">µµ¼­¸í <input type="text" id="bname" name="bname"></label>
-        <label style="display: block;" for="isbn">ÀúÀÚ <input type="text" id="author" name="author"></label>
-        <label style="display: block;" for="isbn">°¡°İ <input type="text" id="price" name="price"></label>
+        <legend >ë„ì„œ ë“±ë¡</legend>
+        <label style="display: block;" for="isbn">ë„ì„œë²ˆí˜¸ <input type="text" id="isbn" name="isbn"></label>
+        <label style="display: block;" for="name">ë„ì„œëª… <input type="text" id="bname" name="bname"></label>
+        <label style="display: block;" for="isbn">ì €ì <input type="text" id="author" name="author"></label>
+        <label style="display: block;" for="isbn">ê°€ê²© <input type="text" id="price" name="price"></label>
         <div>
-          <label for="isbn">¼³¸í </label>
+          <label for="isbn">ì„¤ëª… </label>
           <input style="display: block;" type="text" id="desc" name="desc" width="100%">
         </div>
-        <button type="submit" id="btn-submit">µî·Ï</button>
-        <button type="button">Ãë¼Ò</button>
+        <button type="submit" id="btn-submit">ë“±ë¡</button>
+        <button type="button" id="btn-cancle">ì·¨ì†Œ</button>
       </fieldset>
     </form>
     <script>
     document.querySelector("#btn-submit").addEventListener("click", function () {
         if (!document.querySelector("#isbn").value) {
-          alert("µµ¼­¹øÈ£ ÀÔ·Â!!");
+          alert("ë„ì„œë²ˆí˜¸ ì…ë ¥!!");
           return;
         } else if (!document.querySelector("#bname").value) {
-          alert("µµ¼­¸í ÀÔ·Â!!");
+          alert("ë„ì„œëª… ì…ë ¥!!");
           return;
         } else if (!document.querySelector("#author").value) {
-            alert("ÀúÀÚ ÀÔ·Â!!");
+            alert("ì €ì ì…ë ¥!!");
             return;
         } else if (!document.querySelector("#price").value) {
-            alert("°¡°İ ÀÔ·Â!!");
+            alert("ê°€ê²© ì…ë ¥!!");
             return;
         } else if (!document.querySelector("#desc").value) {
-            alert("¼³¸í ÀÔ·Â!!");
+            alert("ì„¤ëª… ì…ë ¥!!");
             return;
         } else {
           let form = document.querySelector("#form-register");
           form.setAttribute("action", "/book_jsp/main?action=regist");
           form.submit();
         }
+      });
+    
+    document.querySelector("#btn-cancle").addEventListener("click", function () {
+        location.href("book_jsp/index.jsp");
       });
     </script>
 </body>

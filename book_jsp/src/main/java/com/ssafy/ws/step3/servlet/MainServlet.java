@@ -1,5 +1,6 @@
 package com.ssafy.ws.step3.servlet;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,7 +17,20 @@ public class MainServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("regist_result.jsp");
+		String isbn = request.getParameter("isbn");
+		String bname = request.getParameter("bname");
+		String author = request.getParameter("author");
+		String price = request.getParameter("price");
+		String desc = request.getParameter("desc");
 		
+		request.setAttribute("isbn", isbn);
+		request.setAttribute("bname", bname);
+		request.setAttribute("author", author);
+		request.setAttribute("price", price);
+		request.setAttribute("desc", desc);
+		
+		dispatcher.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

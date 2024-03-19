@@ -1,44 +1,60 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+String action = request.getParameter("action");
+%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-  <h1>µµ¼­ µî·Ï °á°ú</h1>
-  <h3>µî·Ï µµ¼­ Á¤º¸</h3>
-  <table border="1px">
+<style>
+table, td, th {
+  border : 1px solid black;
+  border-collapse : collapse;
+};
+</style>
+  <h1>ë„ì„œ ë“±ë¡ ê²°ê³¼</h1>
+<%
+if(action != null){
+%>
+  <h3>ë“±ë¡ ë„ì„œ ì •ë³´</h3>
+  <table>
     <thead>
       <tr>
-        <td>Ç×¸ñ</td>
-        <td>³»¿ë</td>
+        <th>í•­ëª©</th>
+        <th>ë‚´ìš©</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>µµ¼­¹øÈ£</td>
-        <td></td>
+        <td>ë„ì„œë²ˆí˜¸</td>
+        <td><%= request.getAttribute("isbn") %></td>
       </tr>
       <tr>
-        <td>µµ¼­¸í</td>
-        <td></td>
+        <td>ë„ì„œëª…</td>
+        <td><%= request.getAttribute("bname") %></td>
       </tr>
       <tr>
-        <td>ÀúÀÚ</td>
-        <td></td>
+        <td>ì €ìž</td>
+        <td><%= request.getAttribute("author") %></td>
       </tr>
       <tr>
-        <td>°¡°Ý</td>
-        <td></td>
+        <td>ê°€ê²©</td>
+        <td><%= request.getAttribute("price") %></td>
       </tr>
       <tr>
-        <td>¼³¸í</td>
-        <td></td>
+        <td>ì„¤ëª…</td>
+        <td><%= request.getAttribute("desc") %></td>
       </tr>
    </tbody>
   </table>
-  <a href="">Ãß°¡µî·Ï</a>
+  <a href="/book_jsp/regist.jsp">ì¶”ê°€ë“±ë¡</a>
+<% } else {%>
+	<span>ë“±ë¡ëœ ë„ì„œ ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.<br></span>	
+ 	<a href="/book_jsp/regist.jsp">ì¶”ê°€ë“±ë¡</a>
+<% } %>
 </body>
 </html>
