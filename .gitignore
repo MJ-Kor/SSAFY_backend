@@ -70,13 +70,15 @@ local.properties
 Servers/
 =======
 >>>>>>> d01a49c15d1b9d61949fe9ccc40601c7c6a02b24
+*/target
+*/target/*
 
 ### Java ###
 # Compiled class file
 *.class
 *.classpath
 *.project
-*/target
+
 
 # Log file
 *.log
