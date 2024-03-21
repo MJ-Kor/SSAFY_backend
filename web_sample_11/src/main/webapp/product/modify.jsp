@@ -24,6 +24,7 @@ nav a {
 </style>
 </head>
 <body>
+<%@ include file="/nav.jsp" %>
 	<nav>
 		<h2>상품 정보 수정</h2>
 	</nav>

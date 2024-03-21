@@ -1,5 +1,8 @@
 package com.ssafy.member.model.service;
 
-public interface MemberService {
+import com.ssafy.member.model.MemberDto;
 
+public interface MemberService {
+	int idCheck(String userId) throws Exception;
+	MemberDto loginMember(String userId, String userPwd) throws Exception;
 }

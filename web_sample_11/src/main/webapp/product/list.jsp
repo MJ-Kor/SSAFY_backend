@@ -29,6 +29,7 @@ margin-right: 10px
 </style>
 </head>
 <body>
+<%@ include file="/nav.jsp" %>
 	<nav>
 		<h1>상품 목록 페이지</h1>
 	</nav>

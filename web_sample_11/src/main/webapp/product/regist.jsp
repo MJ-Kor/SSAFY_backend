@@ -22,6 +22,7 @@ nav a {
 </style>
 </head>
 <body>
+<%@ include file="/nav.jsp" %>
 	<nav>
 		<h2>상품 정보 등록</h2>
 	</nav>
@@ -42,7 +43,7 @@ nav a {
 		</div>
 
 		<button type="button" id="regist">등록</button>
-		<a href="#">취소</a>
+		<a href="<%= root %>/board?action=list">취소</a>
 	</form>
 	<script>
 		document.querySelector("#regist").addEventListener("click", function(){
