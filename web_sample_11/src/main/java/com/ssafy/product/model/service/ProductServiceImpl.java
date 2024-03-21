@@ -30,21 +30,18 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void modifyProduct() throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void modifyProduct(ProductDto productDto) throws Exception {
+		productDao.modifyProduct(productDto);
 	}
 
 	@Override
-	public void deleteProduct() throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void deleteProduct(String productCode) throws Exception {
+		productDao.deleteProduct(productCode);
 	}
 
 	@Override
-	public List<ProductDto> getSearchedList() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ProductDto> getSearchedList(String key, String searchWord) throws Exception {
+		return productDao.getSearchedList(key, searchWord);
 	}
 
 	@Override

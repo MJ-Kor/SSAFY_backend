@@ -7,8 +7,8 @@ import com.ssafy.product.model.ProductDto;
 public interface ProductService {
 	List<ProductDto> getProductList() throws Exception;
 	void writeProduct(ProductDto productDto) throws Exception;
-	void modifyProduct() throws Exception;
-	void deleteProduct() throws Exception;
-	List<ProductDto> getSearchedList() throws Exception;
+	void modifyProduct(ProductDto productDto) throws Exception;
+	void deleteProduct(String productCode) throws Exception;
+	List<ProductDto> getSearchedList(String key, String searchWord) throws Exception;
 	ProductDto getProduct(String productCode) throws Exception;
 }

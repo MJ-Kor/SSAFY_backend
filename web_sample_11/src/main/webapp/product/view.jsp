@@ -73,15 +73,15 @@ if(productDto != null) {
     ></script>
     <script>
       	document.querySelector("#btn-list").addEventListener("click", function () {
-        location.href = "<%= root %>/product?action=list";
+        location.href = "<%= root %>/board?action=list";
       });
       document.querySelector("#btn-mv-modify").addEventListener("click", function () {
         alert("글수정하자!!!");
-        location.href = "<%= root %>/product?action=mvmodify&productCode=<%= productDto.getCode() %>";
+        location.href = "<%= root %>/board?action=mvmodify&productCode=<%= productDto.getCode() %>";
       });
       document.querySelector("#btn-delete").addEventListener("click", function () {
         alert("글삭제하자!!!");
-        location.href = "<%= root %>/product?action=delete&productCode=<%= productDto.getCode() %>";
+        location.href = "<%= root %>/board?action=delete&productCode=<%= productDto.getCode() %>";
       });
     </script>
   </body>
@@ -91,7 +91,7 @@ if(productDto != null) {
 %>
 <script>
 alert("글이 삭제되었거나 부적절한 URL 접근입니다.");
-location.href = "<%= root %>/product?action=list";
+location.href = "<%= root %>/board?action=list";
 </script>
 <%	
 }

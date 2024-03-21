@@ -34,7 +34,7 @@ margin-right: 10px
 	</nav>
 	<a href="<%= root%>/index.jsp">메인 페이지</a>
 	<br>
-	<a href="<%= root%>/product?action=mvwrite">등록하기</a>
+	<a href="<%= root%>/board?action=mvwrite">등록하기</a>
 	<table>
 		<thead>
 			<tr>
@@ -50,7 +50,7 @@ for(ProductDto productDto : productList){
 			<tr>
 				<td>
 					<a
-					href="<%= root %>/product?action=view&productCode=<%= productDto.getCode() %>"
+					href="<%= root %>/board?action=view&productCode=<%= productDto.getCode() %>"
 	                class="article-title link-dark"
 	                data-no="<%= productDto.getCode() %>"
 	                style="text-decoration: none"
@@ -64,5 +64,23 @@ for(ProductDto productDto : productList){
 <% } %>
 		</tbody>
 	</table>
+	<form id="searchForm" method="POST" action="">
+		<input type="hidden" name="action" value="search">
+		<select id="key" aria-label="검색 조건" name="key">
+			<option selected>검색 조건</option>
+			<option value="code">고유 번호</option>
+			<option value="model">모델명</option>
+			<option value="price">가격</option>
+		</select>
+		<input type="text" class="controlForm" placeholder="검색어..." name="searchWord"/>
+		<button class="btn" type="button" id="searchBtn">검색</button>
+	</form>
+	<script>
+		document.querySelector("#searchBtn").addEventListener("click", function() {
+			let form = document.querySelector("#searchForm");
+			form.setAttribute("action", "<%= root %>/board");
+			form.submit();
+		})
+	</script>
 </body>
 </html>

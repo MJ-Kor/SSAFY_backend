@@ -93,3 +93,8 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+insert into `ssafyweb`.`board` (article_no, user_id, subject, content, hit, register_time)
+values 	('1', 'ssafy', '1234efw', 'swefef', '4', now()), 
+		('2', 'admin', '1234ewef', 'wefef', '5', now());
+        
+select * from board

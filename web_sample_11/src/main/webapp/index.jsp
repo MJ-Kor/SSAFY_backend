@@ -24,7 +24,7 @@ margin-right: 10px
 	<nav>
 		<h1>메인 페이지 입니다.</h1>
 	</nav>
-	<a href="<%= root %>/product?action=list">상품 목록 페이지</a>
+	<a href="<%= root %>/board?action=list">상품 목록 페이지</a>
 	<br>
 	<br>
 

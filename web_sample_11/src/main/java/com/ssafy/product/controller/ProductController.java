@@ -1,6 +1,7 @@
 package com.ssafy.product.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ssafy.product.model.ProductDto;
@@ -15,7 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/product")
+@WebServlet("/board")
 public class ProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -63,8 +64,7 @@ public class ProductController extends HttpServlet {
 			
 		} else if(action.equals("delete")) {
 			path = delete(request, response);
-			RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-			dispatcher.forward(request, response);
+			response.sendRedirect(request.getContextPath() + path);
 			
 		} else if(action.equals("search")) {
 			path = search(request, response); 
@@ -81,7 +81,6 @@ public class ProductController extends HttpServlet {
 			request.setAttribute("product", productDto);
 			return "/product/view.jsp";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "/index.jsp";
 		}
@@ -89,26 +88,65 @@ public class ProductController extends HttpServlet {
 
 
 	private String search(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		return null;
+		String key = request.getParameter("key");
+		String searchWord = request.getParameter("searchWord");
+		List<ProductDto> searchedList = new ArrayList<>();
+		try {
+			if(key.equals("검색 조건")) {
+				searchedList = productService.getProductList();
+				request.setAttribute("products", searchedList);
+				return "/product/list.jsp";
+			}
+			else {
+				System.out.println(searchWord);
+				searchedList = productService.getSearchedList(key, searchWord);
+				request.setAttribute("products", searchedList);
+				return "/product/list.jsp";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "/index.jsp";
+		}
 	}
 
 
 	private String delete(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		return null;
+		String productCode = request.getParameter("productCode");
+		try {
+			productService.deleteProduct(productCode);
+			return "/board?action=list";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "/index.jsp";
+		}
 	}
 
 
 	private String modify(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		return null;
+		ProductDto productDto = new ProductDto();
+		productDto.setCode(request.getParameter("productCode"));
+		productDto.setModel(request.getParameter("model"));
+		productDto.setPrice(Integer.parseInt(request.getParameter("price")));
+		try {
+			productService.modifyProduct(productDto);
+			return view(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "/index.jsp";
+		}
 	}
 
 
 	private String mvmodify(HttpServletRequest request, HttpServletResponse response) {
-		
-		return null;
+		String productCode = request.getParameter("productCode");
+		try {
+			ProductDto productDto = productService.getProduct(productCode);
+			request.setAttribute("product", productDto);
+			return "/product/modify.jsp";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "/index.jsp";
+		}
 	}
 
 
@@ -120,9 +158,8 @@ public class ProductController extends HttpServlet {
 		try {
 			System.out.println("갔나?");
 			productService.writeProduct(productDto);
-			return "/product?action=list";
+			return "/board?action=list";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "/index.jsp";
 		}
@@ -135,7 +172,6 @@ public class ProductController extends HttpServlet {
 			request.setAttribute("products", productList);
 			return "/product/list.jsp";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "/index.jsp";
 		}

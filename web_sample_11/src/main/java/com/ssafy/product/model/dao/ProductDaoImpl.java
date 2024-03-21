@@ -59,7 +59,7 @@ public class ProductDaoImpl implements ProductDao {
 	public void writeProduct(ProductDto productDto) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt= null;
-		
+		int cnt = 0;
 		try {			
 			conn = dbUtil.getConnection();
 			StringBuilder sql = new StringBuilder("insert into product (code, model, price) \n");
@@ -70,28 +70,73 @@ public class ProductDaoImpl implements ProductDao {
 			pstmt.setString(2, productDto.getModel());
 			pstmt.setInt(3, productDto.getPrice());
 			
-			pstmt.executeUpdate();
+			cnt = pstmt.executeUpdate();
 		} finally {
 			dbUtil.close(pstmt, conn);
 		}
 	}
 
 	@Override
-	public void modifyProduct() throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public void modifyProduct(ProductDto productDto) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int cnt = 0;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder("update product set price = " + "'" + productDto.getPrice() + "' \n");
+			sql.append("where code="+ "'" + productDto.getCode() + "'");
+			pstmt = conn.prepareStatement(sql.toString());
+			cnt = pstmt.executeUpdate();
+			
+		} finally {
+			dbUtil.close(pstmt, conn);
+		}
 	}
 
 	@Override
-	public void deleteProduct() throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public void deleteProduct(String productCode) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int cnt = 0;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder("delete from product \n");
+			sql.append("where code=" + "'" + productCode + "'");
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			cnt = pstmt.executeUpdate();
+		} finally {
+			dbUtil.close(pstmt, conn);
+		}
 	}
 
 	@Override
-	public List<ProductDto> getSearchedList() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ProductDto> getSearchedList(String key, String searchWord) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ProductDto> searchedList = new ArrayList<>();
+		
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder("select code, model, price from product \n");
+			sql.append("where " + key + "='" + searchWord + "'");
+			System.out.println(sql);
+			pstmt = conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ProductDto productDto = new ProductDto();
+				productDto.setCode(rs.getString("code"));
+				productDto.setModel(rs.getString("model"));
+				productDto.setPrice(rs.getInt("price"));
+				
+				searchedList.add(productDto);
+				System.out.println(productDto);
+			}
+		} finally {
+			dbUtil.close(rs, pstmt, conn);
+		}
+		return searchedList;
 	}
 
 	@Override
